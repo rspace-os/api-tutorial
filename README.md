@@ -132,4 +132,15 @@ Some of the examples use JSON request bodies - files of JSON data are in  [this 
 
 #### Creating a simple document.
 
+This is the simplest way to create a document - it will be a 'Basic Document' (a single text field) with default name 'Untitled Document' and
+ no content. Note that an empty request body is required.
+ 
+    curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" -d {} "<RSPACE_URL>/api/v1/documents"
+    
+This example is a little more useful - creating a named, tagged Basic Document with  some content:
+
+    curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" \
+       -d "@tutorial-data/creatingDocument/basicDocument-named-withContent.json \
+       "<RSPACE_URL>/api/v1/documents"
+
 
