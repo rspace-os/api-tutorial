@@ -1,9 +1,8 @@
 # api-tutorial
-Entry-level tutorial to using the RSpace API 
 
-This project provides an introduction to using the RSpace API
+## Introduction
 
-##Introduction
+This project provides an introduction to using the RSpace API.
 
 ### Who is this tutorial for?
 
