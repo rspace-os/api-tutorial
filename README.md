@@ -67,14 +67,34 @@ The simplest way to upload a file is as follows:
     curl -v  -X POST -H "accept: application/json" -H "apiKey: <APIKEY>" \
     -H "content-type: multipart/form-data" -F "file=@<MY_FILE.txt>" \
      "<RSPACE_URL>/api/v1/files"
+     
+This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in the relevant section
+ of the Gallery. This folder will be automatically created for you if it doesn't yet exist. JSON will be returned:
+
+    {
+      "id" : 728,
+      "globalId" : "GL728",
+      "name" : "<MY_FILE.txt>",
+      "caption" : "",
+      "contentType" : "text/plain",
+      "created" : "2017-07-23T09:54:16.007Z",
+      "size" : 2812,
+      "_links" : [ {
+         "link" : "<RSPACE_URL>/api/v1/files/728",
+         "rel" : "self"
+       }, {
+         "link" : "<RSPACE_URL>/api/v1/files/728/file",
+         "rel" : "enclosure"
+      } ]
+    }
     
-This will upload a file to the Gallery. If you don't specify a folder, then files will be put in a  default folder
- called 'Api Inbox' in the relevant section of the Gallery.
- 
- You can optionally add a caption to the file, and also specify a folder to put it in.
+ The `_links` property contains pre-generated links to resources created or referenced in API calls. In this case, the 'self'
+  link will return the file metadata, and the 'enclosure' link will download the file contents. These will be described later.
+    
+ You can also upload a file with an optional caption, and also specify a folder to put the file in.
  
      curl -v  -X POST -H "accept: application/json" -H "apiKey: <APIKEY>" \
-    -H "content-type: multipart/form-data" -F "file=@<MY_FILE.txt>" -F"folderId=<FOLDER_ID>\
+     -H "content-type: multipart/form-data" -F "file=@<MY_FILE.txt>" -F"folderId=<FOLDER_ID>\
      -F "caption=some metadata about this file" \"<RSPACE_URL>/api/v1/files"
      
  The caption will appear in the 'Info' section of each Gallery item, and just like a manually edited caption, will be searchable.
@@ -84,11 +104,22 @@ This will upload a file to the Gallery. If you don't specify a folder, then file
   on the 'info' icon beside a Gallery folder.
   
  **Note** there are some restrictions on which folders you can upload to. For example, if uploading image files, a folder ID must
-  be either the Gallery Images folder, or a subfolder of the images folder. You cn't upload a file directly into a workspace folder
+  be either the Gallery Images folder, or a subfolder of the images folder. You can't upload a file directly into a workspace folder
    or notebook.
    
-   If you're uploading many files of mixed type, then it's probably safer not to specify a single folder, but to let them be 
-   placed in the relevant `API Inbox` folder where you can organise them later.
+ If you're uploading many files of mixed type, then it's probably safer not to specify a single folder, but to let them be 
+ placed in the relevant `API Inbox` folder where you can organise them later.
+ 
+ #### Uploading files from folder.
+ 
+ The script [batchUpload.sh](tutorial-data/uploading-a-file-1/batchUpload.sh) will upload files sequentially from a list
+ on the command line, e.g.
+ 
+     # upload a single file
+     ./batchUpload.sh myFile.txt
+     # upload all png files in folder
+     ./batchUpload.sh `ls *.png`
+     
  
  
 
