@@ -1,8 +1,3 @@
-<style>
-.note {
-	color:navy; border: 2px solid maroon; padding:5
-}
-</style>
 # api-tutorial
 Entry-level tutorial to using the RSpace API 
 
@@ -108,11 +103,9 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
  As of 1.45, browsing folders via the API is not yet supported. However it's very easy to get a folder ID from RSpace by clicking
   on the 'info' icon beside a Gallery folder.
  
- <div class="note">
- **Note** there are some restrictions on which folders you can upload to. For example, if uploading image files, a folder ID must
+ **Note:** There are some restrictions on which folders you can upload to. For example, if uploading image files, a folder ID must
   be either the Gallery Images folder, or a subfolder of the images folder. You can't upload a file directly into a workspace folder
    or notebook.
-  </div>
    
  If you're uploading many files of mixed type, then it's probably safer not to specify a single folder, but to let them be 
  placed in the relevant `API Inbox` folder where you can organise them later.
