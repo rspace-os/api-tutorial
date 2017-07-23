@@ -109,7 +109,7 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
  If you're uploading many files of mixed type, then it's probably safer not to specify a single folder, but to let them be 
  placed in the relevant `API Inbox` folder where you can organise them later.
  
- #### Uploading files from folder.
+ #### Uploading files from a folder.
  
  The script [batchUpload.sh](tutorial-data/uploading-a-file-1/batchUpload.sh) will upload files sequentially from a list
  on the command line, e.g.
@@ -119,7 +119,17 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
      # upload all png files in folder
      ./batchUpload.sh `ls *.png`
      
+### Downloading files
+
+You can download files from RSpace to your device using the following syntax:
+
+    curl -v  -H "accept:application/octet-stream" -H "apiKey:<APIKEY>" "<RSPACE_URL>/api/v1/files/<FILE_ID>/file"
  
- 
+### Creating documents
+
+You can create documents of different types, and add content to some or all of the fields.
+Some of the examples use JSON request bodies - files of JSON data are in  [tutorial-data/creatingDocument](this project).
+
+#### Creating a simple document.
 
 
