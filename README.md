@@ -128,7 +128,7 @@ You can download files from RSpace to your device using the following syntax:
 ### Creating documents
 
 You can create documents of different types, and add content to some or all of the fields.
-Some of the examples use JSON request bodies - files of JSON data are in  [tutorial-data/creatingDocument](this project).
+Some of the examples use JSON request bodies - files of JSON data are in  [this project](tutorial-data/creatingDocument).
 
 #### Creating a simple document.
 
