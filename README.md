@@ -1,4 +1,8 @@
-<link rel="stylesheet" href="resources/styles.css">
+<style>
+.note {
+	color:navy; border: 2px solid maroon; padding:5
+}
+</style>
 # api-tutorial
 Entry-level tutorial to using the RSpace API 
 
