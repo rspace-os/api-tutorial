@@ -192,7 +192,7 @@ In this section we'll be using the standard 'Experiment' form that is already de
   as necessary, or you can reference a field by its ID, and just send values for those specific fields.
   
     curl -v  -X PUT -H "content-type: application/json" -H "apiKey: <APIKEY>"\
-      -d "@/tutorial-data/editingDocument/editComplexDocument-named-withContent2.json"  "<RSPACE_URL>/api/v1/documents/<DOC_ID>"
+      -d "@/tutorial-data/editingDocument/editComplexDocument-named-withFieldIds.json"  "<RSPACE_URL>/api/v1/documents/<DOC_ID>"
       
  As for BasicDocuments, you can also send edit name and tags in the request body as well.
   

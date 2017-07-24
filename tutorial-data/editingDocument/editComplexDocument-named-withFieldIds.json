@@ -1,0 +1,11 @@
+{
+  "name": "My Experiment",
+  "tags": "API,example",
+  "form":{"id" : "<FORM_ID>"},
+  "fields": [
+    {
+      "id":"<FIELD_ID>",
+      "content": "This is the edited procedure field."
+    }
+  ]
+}
