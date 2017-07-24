@@ -130,17 +130,69 @@ You can download files from RSpace to your device using the following syntax:
 You can create documents of different types, and add content to some or all of the fields.
 Some of the examples use JSON request bodies - files of JSON data are in  [this project](tutorial-data/creatingDocument).
 
-#### Creating a simple document.
+#### Creating a basic document.
 
 This is the simplest way to create a document - it will be a 'Basic Document' (a single text field) with default name 'Untitled Document' and
- no content. Note that an empty request body is required.
+ no content. Note that an empty request body '-d {}' is required.
  
     curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" -d {} "<RSPACE_URL>/api/v1/documents"
     
-This example is a little more useful - creating a named, tagged Basic Document with  some content:
+This example is a little more useful - creating a named, tagged Basic Document with some content:
 
     curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" \
        -d "@tutorial-data/creatingDocument/basicDocument-named-withContent.json \
        "<RSPACE_URL>/api/v1/documents"
+       
+#### Creating links in documents to files
 
+If you want to create links to files in a document's content, you can easily do this by adding a tag with the syntax:
 
+    <fileId=1234>
+    
+  to your document content, e.g. replacing '1234' with the id of your file. RSpace will then create links in exactly the same way
+  as it does in the UI. E.g.
+    
+    {
+      "name": "My Experiment",
+      "tags": "API,example",
+      "fields": [
+         {
+           "content": "Protocol as described in <fileId=1234>, except using EDTA 3uM. "
+         }
+        ]
+    }
+
+#### Editing existing content in a basic document
+
+You can alter the content of an existing document using a `PUT` request to the `/documents/{docId}` endpoint. The new
+content will replace existing content. If someone else is editing the document, then the request will fail,
+returning a `409 Conflict` error code.  
+
+You just include in the request body the data that you want to change - any/all of name, tags and field content.
+
+    curl -v  -X PUT -H "content-type: application/json" -H "apiKey: <APIKEY>"\
+      -d "@/tutorial-data/editingDocument/editBasicDocument.json"  "<RSPACE_URL>/api/v1/documents/<DOC_ID>"
+      
+#### Creating and editing multi-field documents.
+
+Now we know how to  create simple documents, let's consider multi-field of 'Structured Documents' that contain 
+ fields of different types as defined by a Form. You can add/edit content to any or all of the fields.
+ 
+In this section we'll be using the standard 'Experiment' form that is already defined for you in RSpace. It contains
+ 7 text fields: Method, Objective, Procedure, Results, Discussion, Conclusion, Comment.
+ 
+ You'll need to get the ID of the form from the UI, and include this ID as in the  'form' property in the request body.
+ When adding content, the order is important. If for example, you just want to add content to the 'Procedure' field,
+  which is the 3rd field, then supply a list of 7 fields, of which only the 3rd has some data, e.g.
+  
+    curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" \
+      -d "@/tutorial-data/creatingDocument/complexDocument-named-withContent.json" "<RSPACE_URL>/api/v1/documents"
+ 
+ When editing content, there are two options. Either you can send the data as a list of all fields, as for POST, including content
+  as necessary, or you can reference a field by its ID, and just send values for those specific fields.
+  
+    curl -v  -X PUT -H "content-type: application/json" -H "apiKey: <APIKEY>"\
+      -d "@/tutorial-data/editingDocument/editComplexDocument-named-withContent2.json"  "<RSPACE_URL>/api/v1/documents/<DOC_ID>"
+      
+ As for BasicDocuments, you can also send edit name and tags in the request body as well.
+  

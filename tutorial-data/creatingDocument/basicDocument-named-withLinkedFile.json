@@ -1,0 +1,9 @@
+{
+  "name": "My Experiment linked to file",
+  "tags": "API,example",
+   "fields": [
+     {
+       "content": "Protocol as described in <fileId=1234>, except using EDTA 3uM."
+     }
+   ]
+}

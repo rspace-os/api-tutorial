@@ -1,0 +1,28 @@
+{
+  "name": "My Experiment",
+  "tags": "API,example",
+  "form":{"id":1},
+  "fields": [
+    {
+      "content": ""
+    },
+    {
+      "content": ""
+    },
+    {
+      "content": "This is the procedure field content2"
+    },
+    {
+      "content": ""
+    },
+    {
+      "content": ""
+    },
+    {
+      "content": ""
+    },
+    {
+      "content": ""
+    }
+  ]
+}
