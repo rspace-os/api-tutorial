@@ -20,7 +20,7 @@ RSpace API to interact programmatically with the RSpace Electronic Lab Notebook.
 
 ### What version of RSpace is required for this tutorial?
 
-RSpace 1.47 or newer is needed to follow all the steps.
+RSpace 1.50 or newer is needed to follow all the steps.
 
 ### Use-cases for the API
 
@@ -28,6 +28,7 @@ RSpace 1.47 or newer is needed to follow all the steps.
  * Creating RSpace documents and linking to files.
  * Adding or editing content in an RSpace document.
  * Searching and retrieving files and documents
+ * Creating folders and notebooks for organising content.
  
 ### Getting started
 * Follow the instructions in the [RSpace help documentation](http://www.researchspace.com/help-and-support-resources/rspace-api-introduction/)
@@ -190,10 +191,55 @@ In this section we'll be using the standard 'Experiment' form that is already de
   [those specific fields](tutorial-data/editingDocument/editComplexDocument-named-withFieldIds.json).
   
     curl -v  -X PUT -H "content-type: application/json" -H "apiKey: <APIKEY>"\
-      -d "@tutorial-data/editingDocument/editComplexDocument-named-withFieldIds.json"  "<RSPACE_URL>/api/v1/documents/<DOC_ID>"
+      -d "@tutorial-data/editingDocument/editComplexDocument-named-withFieldIds.json"\
+      "<RSPACE_URL>/api/v1/documents/<DOC_ID>"
       
  As for BasicDocuments, you can also edit name and tags in the request body as well.
  
+## Creating notebooks and folders
+
+From RSpace 1.50 (API version 1.4) you can create notebooks and folders.
+
+    curl -X POST "<RSPACE_URL>/api/v1/folders" -H "accept: application/json" -H "apiKey: <APIKEY>" \
+    -H "content-type: application/json" \
+    -d "{ \"name\": \"My notebook\", \"notebook\": \"true\"}"
+    
+will create a new Notebook in your Home folder. If you prefer to create a folder just set the notebook parameter to 'false'. Or,just omit the parameter - the default behaviour is to create a folder.
+
+You can also create a new folder or notebook in an existing folder using the `parentFolderId` parameter, e.g.
+
+    curl -X POST "<RSPACE_URL>/api/v1/folders" -H "accept: application/json" -H "apiKey: <APIKEY>" \
+     -H "content-type: application/json"\
+     -d "{ \"name\": \"My notebook\", \"parentFolderId\":\"12234\"}"
+    
+There are some restrictions on where you can create folders and notebooks, which are required to  maintain consistent behaviour
+ with the web application. 
+
+* You can't create folders or notebooks inside notebooks
+* You can't create notebooks inside the Shared Folder; create them in a User folder first, then share. (Sharing is not yet supported in the API, but you can do this in the web application).
+ 
+## Forms
+
+From RSpace 1.50 (API version 1.4) you can list and search for Forms. The search mechanism replicates what is used 
+in the 'Manage Forms' page in the web application.
+
+To list all Forms:
+      
+    curl -X GET "<RSPACE_URL>/api/v1/forms" -H "accept: application/json" -H "apiKey: <APIKEY>"
+    
+As for documents and files, you can order and paginate:
+
+    curl -X GET "<RSPACE_URL>/api/v1/forms?pageSize=10&orderBy=lastModified%20desc" \
+       -H "accept: application/json" -H "apiKey: <APIKEY>"
+       
+Searching is by freeform wildcard search for all or part of the `name` or `tag` property of the form.
+
+    curl -X GET "<RSPACE_URL>/api/v1/forms?query=Algal%20Sample" \
+       -H "accept: application/json" -H "apiKey: <APIKEY>"
+       
+Please see [Form documentation](https://www.researchspace.com/enterprise/help-and-support-resources-enterprise/forms-enterprise/) for more details on how Forms are versioned and used in RSpace. As in the user interface, form searching retrieves
+the *current version* of a Form.
+
 ## Exporting content
 
 From RSpace 1.47 (API version 1.3) you can programmatically export your work in HTML or XML format. This 
