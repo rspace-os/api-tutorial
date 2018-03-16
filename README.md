@@ -97,7 +97,7 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
  The caption will appear in the 'Info' section of each Gallery item, and just like a manually edited caption, will be searchable.
  This is a good way to add some descriptive metadata to your file so that you can locate it easily.
  
- As of 1.45, browsing folders via the API is not yet supported. However it's very easy to get a folder ID from RSpace by clicking
+ As of 1.50, browsing folders via the API is not yet supported. However it's very easy to get a folder ID from RSpace by clicking
   on the 'info' icon beside a Gallery folder.
  
  **Note:** There are some restrictions on which folders you can upload to. For example, if uploading image files, a folder ID must
