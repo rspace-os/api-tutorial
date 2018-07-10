@@ -139,7 +139,7 @@ This is the simplest way to create a document - it will be a 'Basic Document' (a
 This example is a little more useful - creating a named, tagged Basic Document with some content:
 
     curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" \
-       -d "@tutorial-data/creatingDocument/basicDocument-named-withContent.json \
+       -d "@tutorial-data/creatingDocument/basicDocument-named-withContent.json" \
        "<RSPACE_URL>/api/v1/documents"
        
 #### Creating links in documents to files

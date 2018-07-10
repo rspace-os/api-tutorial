@@ -17,7 +17,7 @@ and `scope` is 'user' or 'group'. You can optionally specify a user or group ID.
 export your own work or your own group's work (group export is only available to  PIs). E.g. to export
 your own work in HTML:
 
-    curl -v -H "apiKey: <APIKEY>"  "<RSPACE_URL>/api/v1/export/html/user/"
+    curl -XPOST -v -H "apiKey: <APIKEY>"  "<RSPACE_URL>/api/v1/export/html/user/"
     
  All being well, you'll receive a 202 Accepted response, job id and a link to a job to query subsequent progress:
  
