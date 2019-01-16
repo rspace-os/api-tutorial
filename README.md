@@ -234,13 +234,10 @@ In this section we'll be using the standard 'Experiment' form that is already de
 and in a similar way you can delete whole notebooks or folders as well:
 
     curl -v  -X DELETE  -H "apiKey: <APIKEY>"\
-      "<RSPACE_URL>/api/v1/folders/<DOC_ID>"
+      "<RSPACE_URL>/api/v1/folders/<FOLDER_ID>"
       
 In both these cases, if a notebook or document was previously shared, then they will be unshared as part of the deletion process.
   
-## Sharing Content
-
-From RSpace 1.56, it is possible 
  
 ## Forms
 
@@ -288,8 +285,8 @@ From RSpace 1.56, it is possible to import Microsoft Word or OpenOffice files as
 
 The API calls are similar to those for uploading files - you'll need a Word/Office file, and optionally a folder ID that you want to import into:
 
-    curl -X POST "<RSPACE_URL>/api/v1/import/word" -H "accept: application/json" 
-    -H "apiKey: <APIKEY>" -H "content-type: multipart/form-data"
+    curl -X POST "<RSPACE_URL>/api/v1/import/word" -H "accept: application/json" \
+    -H "apiKey: <APIKEY>" -H "content-type: multipart/form-data" \
      -F "file=@<WORD_FILE>.doc;type=application/msword"
     
 If you don't specify a folder ID, the RSpace document will be created in the 'Api Inbox' folder.
@@ -297,8 +294,3 @@ If you don't specify a folder ID, the RSpace document will be created in the 'Ap
 ## Sharing items with other groups and users
 
 From RSpace 1.56, it is possible to share documents and notebooks programmatically. You can read more details in [sharing.md](sharing.md).
-
-
-
-
-

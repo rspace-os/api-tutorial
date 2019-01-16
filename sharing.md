@@ -59,3 +59,47 @@ As well as the IDs of users and groups, the `sharedFolderId` property is also us
 }
 ```
  It will be shared with READ permission into the top level of the group folder.
+ 
+ The response is a `ShareInfo` object summarising a successful share action. Here is an example of the response that 
+might be generated from the simple request body above:
+ 
+ ```
+ {
+  "shareInfos": [
+    {
+      "id": 6789,
+      "sharedItemId": 1234,
+      "sharedTargetType": "GROUP",
+      "permission": "READ"
+    }
+  ],
+  "failedShareIds": []
+}
+```
+
+Any items that could not be shared are added to the `failedShareIds` list. 
+
+### Unsharing
+
+Unsharing is accomplished by a `DELETE` request, using the ID of the Share object to identify what should be unshared.
+In the above example, the share ID is '6789', so we would use this in the path of the delete request:
+
+    curl -v  -X DELETE  -H "apiKey: <APIKEY>"\
+      "<RSPACE_URL>/api/v1/share/6789" 
+      
+ will unshare document with id '1234' from group '12345'.
+ 
+ Successful deletion will return a 204 HTTP status code
+ 
+### Listing shared items
+
+It's possible to list shared items, giving similar information to that obtained from MyRSpace -> Shared Documents page.
+
+This is a paginated and searchable method, e.g. 
+
+    curl -X GET "<RSPACE_URL>/api/v1/share?pageSize=20&orderBy=name%20desc" \
+    -H "accept: application/json" -H "apiKey: <APIKEY>"
+    
+ This will return a list of `ShareInfo` objects. Additionally as with all paginated listings, the `_links` attribute will contain
+  links to previous/next pages.
+ 
