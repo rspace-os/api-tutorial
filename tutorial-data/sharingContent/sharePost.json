@@ -1,0 +1,23 @@
+{
+  "itemsToShare": [
+    1234,
+    5678
+  ],
+  "groups": [
+    {
+      "id": 12345,
+      "permission": "EDIT",
+      "sharedFolderId": 8922
+    },
+    {
+      "id": 23456,
+      "permission": "READ"
+    }
+  ],
+  "users": [
+    {
+      "id": 89999,
+      "permission": "EDIT"
+    }
+  ]
+}

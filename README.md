@@ -20,7 +20,7 @@ RSpace API to interact programmatically with the RSpace Electronic Lab Notebook.
 
 ### What version of RSpace is required for this tutorial?
 
-RSpace 1.50 or newer is needed to follow all the steps.
+RSpace 1.56 or newer is needed to follow all the steps.
 
 ### Use-cases for the API
 
@@ -30,6 +30,9 @@ RSpace 1.50 or newer is needed to follow all the steps.
  * Searching and retrieving files and documents
  * Creating folders and notebooks for organising content.
  * Creating and publishing forms
+ * Sharing RSpace documents
+ * Importing MSWord or OpenOffice documents into RSpace
+ * Scheduled exports of your work.
  
 ### Getting started
 * Follow the instructions in the [RSpace help documentation](http://www.researchspace.com/help-and-support-resources/rspace-api-introduction/)
@@ -161,6 +164,28 @@ If you want to create links to files in a document's content, you can easily do 
         ]
     }
 
+### Creating notebooks and folders
+
+From RSpace 1.50 (API version 1.4) you can create notebooks and folders.
+
+    curl -X POST "<RSPACE_URL>/api/v1/folders" -H "accept: application/json" -H "apiKey: <APIKEY>" \
+    -H "content-type: application/json" \
+    -d "{ \"name\": \"My notebook\", \"notebook\": \"true\"}"
+    
+will create a new Notebook in your Home folder. If you prefer to create a folder just set the notebook parameter to 'false'. Or,just omit the parameter - the default behaviour is to create a folder.
+
+You can also create a new folder or notebook in an existing folder using the `parentFolderId` parameter, e.g.
+
+    curl -X POST "<RSPACE_URL>/api/v1/folders" -H "accept: application/json" -H "apiKey: <APIKEY>" \
+     -H "content-type: application/json"\
+     -d "{ \"name\": \"My notebook\", \"parentFolderId\":\"12234\"}"
+    
+There are some restrictions on where you can create folders and notebooks, which are required to  maintain consistent behaviour
+ with the web application. 
+
+* You can't create folders or notebooks inside notebooks
+* You can't create notebooks inside the Shared Folder; create them in a User folder first, then share. (Sharing is not yet supported in the API, but you can do this in the web application).
+
 ## Editing existing content in a basic document
 
 You can alter the content of an existing document using a `PUT` request to the `/documents/{docId}` endpoint. The new
@@ -196,28 +221,26 @@ In this section we'll be using the standard 'Experiment' form that is already de
       "<RSPACE_URL>/api/v1/documents/<DOC_ID>"
       
  As for BasicDocuments, you can also edit name and tags in the request body as well.
+
+## Deleting content
  
-## Creating notebooks and folders
+ You can mark documents  as deleted. This behaves in the same way as the web UI - documents are not completely removed
+  but are merely hidden from listings and search results. This is a simple call that takes single path variable, the ID
+  of the document to delete:
+  
+    curl -v  -X DELETE  -H "apiKey: <APIKEY>"\
+      "<RSPACE_URL>/api/v1/documents/<DOC_ID>"
+      
+and in a similar way you can delete whole notebooks or folders as well:
 
-From RSpace 1.50 (API version 1.4) you can create notebooks and folders.
+    curl -v  -X DELETE  -H "apiKey: <APIKEY>"\
+      "<RSPACE_URL>/api/v1/folders/<DOC_ID>"
+      
+In both these cases, if a notebook or document was previously shared, then they will be unshared as part of the deletion process.
+  
+## Sharing Content
 
-    curl -X POST "<RSPACE_URL>/api/v1/folders" -H "accept: application/json" -H "apiKey: <APIKEY>" \
-    -H "content-type: application/json" \
-    -d "{ \"name\": \"My notebook\", \"notebook\": \"true\"}"
-    
-will create a new Notebook in your Home folder. If you prefer to create a folder just set the notebook parameter to 'false'. Or,just omit the parameter - the default behaviour is to create a folder.
-
-You can also create a new folder or notebook in an existing folder using the `parentFolderId` parameter, e.g.
-
-    curl -X POST "<RSPACE_URL>/api/v1/folders" -H "accept: application/json" -H "apiKey: <APIKEY>" \
-     -H "content-type: application/json"\
-     -d "{ \"name\": \"My notebook\", \"parentFolderId\":\"12234\"}"
-    
-There are some restrictions on where you can create folders and notebooks, which are required to  maintain consistent behaviour
- with the web application. 
-
-* You can't create folders or notebooks inside notebooks
-* You can't create notebooks inside the Shared Folder; create them in a User folder first, then share. (Sharing is not yet supported in the API, but you can do this in the web application).
+From RSpace 1.56, it is possible 
  
 ## Forms
 
@@ -253,10 +276,29 @@ You can create new forms through the API. Read more about this in [forms.md](for
 
 ## Exporting content
 
-From RSpace 1.47 (API version 1.3) you can programmatically export your work in HTML or XML format. This 
+You can programmatically export your work in HTML or XML format. This 
 might be useful if you want to make scheduled backups, for example. If you're an admin or PI you can export
 a particular user's work if you have permission.
 
 You can read more details in [jobs.md](jobs.md).
+
+## Importing content
+
+From RSpace 1.56, it is possible to import Microsoft Word or OpenOffice files as RSpace documents. This is the same functionality as the `Create->from Word` feature in the web application.
+
+The API calls are similar to those for uploading files - you'll need a Word/Office file, and optionally a folder ID that you want to import into:
+
+    curl -X POST "<RSPACE_URL>/api/v1/import/word" -H "accept: application/json" 
+    -H "apiKey: <APIKEY>" -H "content-type: multipart/form-data"
+     -F "file=@<WORD_FILE>.doc;type=application/msword"
+    
+If you don't specify a folder ID, the RSpace document will be created in the 'Api Inbox' folder.
+
+## Sharing items with other groups and users
+
+From RSpace 1.56, it is possible to share documents and notebooks programmatically. You can read more details in [sharing.md](sharing.md).
+
+
+
 
 

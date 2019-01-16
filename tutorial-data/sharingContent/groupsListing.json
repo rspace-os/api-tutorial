@@ -1,0 +1,62 @@
+[
+ {
+    "id": 3244032,
+    "globalId": "GP3244032",
+    "name": "G1",
+    "type": "LAB_GROUP",
+    "sharedFolderId": 14811,
+    "members": [
+      {
+        "id": 2293774,
+        "username": "anotheranna",
+        "role": "PI"
+      },
+      {
+        "id": 1835010,
+        "username": "annauser",
+        "role": "USER"
+      },
+      {
+        "id": 753665,
+        "username": "dcopper",
+        "role": "USER"
+      }
+    ],
+    "_links": []
+  },
+  {
+    "id": 3506176,
+    "globalId": "GP3506176",
+    "name": "June15Grp",
+    "type": "LAB_GROUP",
+    "sharedFolderId": 15409,
+    "members": [
+      {
+        "id": 163840,
+        "username": "richard",
+        "role": "PI"
+      },
+      {
+        "id": 3997698,
+        "username": "lcopeland",
+        "role": "LAB_ADMIN"
+      },
+      {
+        "id": 3309568,
+        "username": "test12",
+        "role": "LAB_ADMIN"
+      },
+      {
+        "id": 753665,
+        "username": "dcopper",
+        "role": "USER"
+      },
+      {
+        "id": 1638403,
+        "username": "ran123",
+        "role": "USER"
+      }
+    ],
+    "_links": []
+  }
+  ]

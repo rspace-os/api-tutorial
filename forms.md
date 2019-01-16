@@ -39,6 +39,15 @@ The 'share' action is simplified - it will share the form with your group. Shari
 
 For end-users to use the forms, they'll have to add the form to their Create menu, as usual.
 
-      
+### Deleting forms
+
+Forms in the `NEW` state, or forms that have been published, but not yet used to create documents, may be deleted. Deletion will remove the form completely from the RSpace database.
+
+You can delete a form as follows:
+
+    curl -v  -X DELETE  -H "apiKey: <APIKEY>"\
+      "<RSPACE_URL>/api/v1/forms/<ID>"
+
+If a form cannot be deleted (perhaps because it has been used to create documents), a `422` status code will be returned.
       
  
