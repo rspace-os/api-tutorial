@@ -23,7 +23,7 @@ Before sending a SHARE operation, you must determine:
 * The IDs of the users/groups you want to share with. You can get these from the /groups GET endpoint, e.g.
 
     curl -X GET "<RSPACE_URL>/api/v1/groups" \
-       -H "accept: application/json" -H "apiKey: <APIKEY>"
+    -H "accept: application/json" -H "apiKey: <APIKEY>"
        
 which will return a listing of group information. An example listing is in [groupsListing.json](tutorial-data/sharingContent/groupsListing.json)
 
@@ -41,7 +41,7 @@ As well as the IDs of users and groups, the `sharedFolderId` property is also us
 
  Once we have identified what we want to share, and who with, we can create the body of the request. An example is in [sharePost.json](tutorial-data/sharingContent/sharePost.json), which shows how to share 2 items with 2 groups and a user, with varying permissions.
  
- At least one user or group must be specified, and at least one item to share. If no folder ID is set, and no permission, then the the item will be shared with `READ` permission into the top-level shared folder of the group.
+ At least one user or group must be specified, and at least one item to share. If no folder ID is set, and no permission, then the default is that the item will be shared with `READ` permission into the top-level shared folder of the group.
  
  Here is an example of the minimal request body required to share 1 item with a group:
  
