@@ -1,4 +1,4 @@
-From RSpace 1.56 (API version 1.6) you can programmatically share notebooks and documents.
+From RSpace 1.56 (API version 1.5) you can programmatically share notebooks and documents.
 
 ## Background
 
