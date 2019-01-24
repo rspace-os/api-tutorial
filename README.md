@@ -101,7 +101,7 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
  The caption will appear in the 'Info' section of each Gallery item, and just like a manually edited caption, will be searchable.
  This is a good way to add some descriptive metadata to your file so that you can locate it easily.
  
- As of 1.50, browsing folders via the API is not yet supported. However it's very easy to get a folder ID from RSpace by clicking
+ Browsing folders via the API is not yet supported. However it's very easy to get a folder ID from RSpace by clicking
   on the 'info' icon beside a Gallery folder.
  
  **Note:** There are some restrictions on which folders you can upload to. For example, if uploading image files, a folder ID must
@@ -166,7 +166,7 @@ If you want to create links to files in a document's content, you can easily do 
 
 ### Creating notebooks and folders
 
-From RSpace 1.50 (API version 1.4) you can create notebooks and folders.
+You can create notebooks and folders:
 
     curl -X POST "<RSPACE_URL>/api/v1/folders" -H "accept: application/json" -H "apiKey: <APIKEY>" \
     -H "content-type: application/json" \
@@ -243,7 +243,7 @@ In both these cases, if a notebook or document was previously shared, then they 
 
 ### Listing forms
 
-From RSpace 1.50 (API version 1.4) you can list and search for Forms. The search mechanism replicates what is used 
+You can list and search for Forms. The search mechanism replicates what is used 
 in the 'Manage Forms' page in the web application.
 
 To list all Forms:
