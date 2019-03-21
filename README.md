@@ -291,6 +291,14 @@ The API calls are similar to those for uploading files - you'll need a Word/Offi
     
 If you don't specify a folder ID, the RSpace document will be created in the 'Api Inbox' folder.
 
+From RSpace 1.58, Evernote .enex files can be imported using a similar mechanism, e.g.:
+
+    curl -X POST "<RSPACE_URL>/api/v1/import/evernote" -H "accept: application/json" \
+    -H "apiKey: <APIKEY>" -H "content-type: multipart/form-data" \
+     -F "file=@<EVERNOT_FILE>.enex;type=application/xml"
+     
+If successful, a new folder will be returned, containing the newly imported notes. An Evernote 'Note' will be converted into an RSpace plain text document.
+
 ## Sharing items with other groups and users
 
 From RSpace 1.56, it is possible to share documents and notebooks programmatically. You can read more details in [sharing.md](sharing.md).
