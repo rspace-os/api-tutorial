@@ -20,7 +20,7 @@ RSpace API to interact programmatically with the RSpace Electronic Lab Notebook.
 
 ### What version of RSpace is required for this tutorial?
 
-RSpace 1.56 or newer is needed to follow all the steps.
+RSpace 1.60 or newer is needed to follow all the steps.
 
 ### Use-cases for the API
 
@@ -80,6 +80,7 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
       "contentType" : "text/plain",
       "created" : "2017-07-23T09:54:16.007Z",
       "size" : 2812,
+      "version" : 1
       "_links" : [ {
          "link" : "<RSPACE_URL>/api/v1/files/728",
          "rel" : "self"
@@ -111,7 +112,7 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
  If you're uploading many files of mixed type, then it's probably safer not to specify a single folder, but to let them be 
  placed in the relevant `API Inbox` folder where you can organise them later.
  
- #### Uploading files from a folder.
+#### Uploading files from a folder.
  
  The script [batchUpload.sh](tutorial-data/uploading-a-file-1/batchUpload.sh) will upload files sequentially from a list
  on the command line, e.g.
@@ -120,6 +121,16 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
      ./batchUpload.sh myFile.txt
      # upload all png files in folder
      ./batchUpload.sh `ls *.png`
+     
+#### Replacing files
+
+You can replace the file contents of a file by uploading a new version, using the ID obtained from an initial upload.
+
+    curl -v -X POST -H "accept: application/json" -H "apiKey: <APIKEY>" \
+    -H "content-type: multipart/form-data" -F "file=@<MY_FILE.txt>" \
+     "<RSPACE_URL>/api/v1/files/<FILE_ID>file"
+     
+This will also return a JSON response of the uploaded File, with updated `version` property. The `id` will remain the same.
      
 ### Downloading files
 
