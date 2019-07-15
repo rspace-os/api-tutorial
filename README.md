@@ -155,6 +155,14 @@ This example is a little more useful - creating a named, tagged Basic Document w
     curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" \
        -d "@tutorial-data/creatingDocument/basicDocument-named-withContent.json" \
        "<RSPACE_URL>/api/v1/documents"
+
+You can also set the parent folder that you want the document created in. This should be folder in your Workspace - not a shared folder.
+
+    curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" \
+       -d "@tutorial-data/creatingDocument/basicDocument-named-withContent-withParentFolder.json" \
+       "<RSPACE_URL>/api/v1/documents"
+
+If you don't set parent folder, it will appear in the 'API Inbox' folder by default.
        
 #### Creating links in documents to files
 

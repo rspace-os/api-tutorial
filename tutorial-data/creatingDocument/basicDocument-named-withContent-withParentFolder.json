@@ -1,0 +1,10 @@
+{
+  "name": "My Experiment",
+  "tags": "API,example",
+  "parentFolderId": 123,
+  "fields": [
+    {
+      "content": "<p> Add 2ul 50uM EDTA to Xenopus egg extract. <p> See <a href=\"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3437562/\">here</a>"
+    }
+  ]
+}
