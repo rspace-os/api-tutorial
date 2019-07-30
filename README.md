@@ -33,6 +33,7 @@ RSpace 1.60 or newer is needed to follow all the steps.
  * Sharing RSpace documents
  * Importing MSWord or OpenOffice documents into RSpace
  * Scheduled exports of your work.
+ * Creation of user accounts and groups (admins only)
  
 ### Getting started
 * Follow the instructions in the [RSpace help documentation](http://www.researchspace.com/help-and-support-resources/rspace-api-introduction/)
@@ -321,3 +322,7 @@ If successful, a new folder will be returned, containing the newly imported note
 ## Sharing items with other groups and users
 
 From RSpace 1.56, it is possible to share documents and notebooks programmatically. You can read more details in [sharing.md](sharing.md).
+
+## Administration of user accounts
+
+Users with a 'SYSADMIN' role can create new user accounts and lab groups. This API is in 'beta' in 1.59.3 and may be subject to change. More details in [creating_accounts.md](creating_accounts.md)

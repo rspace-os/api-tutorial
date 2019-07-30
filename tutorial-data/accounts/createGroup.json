@@ -1,0 +1,13 @@
+{
+  "name": "MyGroup",
+  "members": [
+    {
+      "username": "bob123",
+      "roleInGroup": "PI"
+    },
+    {
+      "username": "labmember",
+      "roleInGroup": "DEFAULT"
+    }
+  ]
+}
