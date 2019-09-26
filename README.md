@@ -20,7 +20,7 @@ RSpace API to interact programmatically with the RSpace Electronic Lab Notebook.
 
 ### What version of RSpace is required for this tutorial?
 
-RSpace 1.60 or newer is needed to follow all the steps.
+RSpace 1.63 or newer is needed to follow all the steps.
 
 ### Use-cases for the API
 
@@ -42,14 +42,23 @@ RSpace 1.60 or newer is needed to follow all the steps.
 
 Code examples are shown in the following syntax:
 
-    curl -v -H "accept: application/json" -H "apiKey:<APIKEY>"  "<RSPACE_URL>/api/v1/files"
+    curl -v -H "accept: application/json" -H "apiKey:$APIKEY"  "$RSPACE_URL/api/v1/files"
     
  * The `-v` option to curl shows verbose information about the request to help you debug any problems.
- * You generally need to supply the content type to be accepted, and your API key, as request headers. Replace '<APIKEY'>
-   with your own key.
- * Replace <RSPACE_URL> with the base URL of your RSpace installation. E.g. if you're using RSpace Community, this 
-   would be `https://community.researchspace.com`.
+ * You generally need to supply the content type to be accepted, and your API key, as request headers. 
+ Replace '$APIKEY' with your own key. You can export this as an environment variable. This is good practice, as it avoids putting secret information on the command line e.g. in Bash shell:
+ 
+     export API_KEY=mysecretkey
+     
+ * Replace $RSPACE_URL with the base URL of your RSpace installation. E.g. if you're using RSpace Community, this would be `https://community.researchspace.com`. You can export this as an environment variable as well, e.g. in Bash shell:
+ 
+     export RSPACE_URL=https://community.researchspace.com
+     
  * Any other text in <ANGLE_BRACKETS> is a placeholder for a value specific to your account, e.g. a resource identifier. 
+ 
+ * You can check your setup by making a simple call to the `/status` endpoint:
+ 
+     curl -H "apiKey:$APIKEY" "$RSPACE_URL/api/v1/status"
    
 All code snippets are provided as working examples in the `tutorial-data` folders in this project.
  
@@ -66,9 +75,9 @@ using the web application. You can perform tasks such as:
 
 The simplest way to upload a file is as follows:
 
-    curl -v  -X POST -H "accept: application/json" -H "apiKey: <APIKEY>" \
+    curl -v  -X POST -H "accept: application/json" -H "apiKey: $APIKEY" \
     -H "content-type: multipart/form-data" -F "file=@<MY_FILE.txt>" \
-     "<RSPACE_URL>/api/v1/files"
+     "$RSPACE_URL/api/v1/files"
      
 This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in the relevant section
  of the Gallery. This folder will be automatically created for you if it doesn't yet exist. JSON will be returned:
@@ -83,10 +92,10 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
       "size" : 2812,
       "version" : 1
       "_links" : [ {
-         "link" : "<RSPACE_URL>/api/v1/files/728",
+         "link" : "$RSPACE_URL/api/v1/files/728",
          "rel" : "self"
        }, {
-         "link" : "<RSPACE_URL>/api/v1/files/728/file",
+         "link" : "$RSPACE_URL/api/v1/files/728/file",
          "rel" : "enclosure"
       } ]
     }
@@ -96,9 +105,9 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
     
  You can also upload a file with an optional caption, and also specify a folder to put the file in.
  
-     curl -v  -X POST -H "accept: application/json" -H "apiKey: <APIKEY>" \
+     curl -v  -X POST -H "accept: application/json" -H "apiKey: $APIKEY" \
      -H "content-type: multipart/form-data" -F "file=@<MY_FILE.txt>" -F"folderId=<FOLDER_ID>\
-     -F "caption=some metadata about this file" \"<RSPACE_URL>/api/v1/files"
+     -F "caption=some metadata about this file" \"$RSPACE_URL/api/v1/files"
      
  The caption will appear in the 'Info' section of each Gallery item, and just like a manually edited caption, will be searchable.
  This is a good way to add some descriptive metadata to your file so that you can locate it easily.
@@ -127,9 +136,9 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
 
 You can replace the file contents of a file by uploading a new version, using the ID obtained from an initial upload.
 
-    curl -v -X POST -H "accept: application/json" -H "apiKey: <APIKEY>" \
+    curl -v -X POST -H "accept: application/json" -H "apiKey: $APIKEY" \
     -H "content-type: multipart/form-data" -F "file=@<MY_FILE.txt>" \
-     "<RSPACE_URL>/api/v1/files/<FILE_ID>file"
+     "$RSPACE_URL/api/v1/files/<FILE_ID>file"
      
 This will also return a JSON response of the uploaded File, with updated `version` property. The `id` will remain the same.
      
@@ -137,7 +146,7 @@ This will also return a JSON response of the uploaded File, with updated `versio
 
 You can download files from RSpace to your device using the following syntax:
 
-    curl -v  -H "accept:application/octet-stream" -H "apiKey:<APIKEY>" "<RSPACE_URL>/api/v1/files/<FILE_ID>/file"
+    curl -v  -H "accept:application/octet-stream" -H "apiKey:$APIKEY" "$RSPACE_URL/api/v1/files/<FILE_ID>/file"
  
 ### Creating documents
 
@@ -149,19 +158,19 @@ Some of the examples use JSON request bodies - files of JSON data are in  [this 
 This is the simplest way to create a document - it will be a 'Basic Document' (a single text field) with default name 'Untitled Document' and
  no content. Note that an empty request body '-d {}' is required.
  
-    curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" -d {} "<RSPACE_URL>/api/v1/documents"
+    curl -X POST -H "content-type: application/json" -H "apiKey:$APIKEY" -d {} "$RSPACE_URL/api/v1/documents"
     
 This example is a little more useful - creating a named, tagged Basic Document with some content:
 
-    curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" \
+    curl -X POST -H "content-type: application/json" -H "apiKey:$APIKEY" \
        -d "@tutorial-data/creatingDocument/basicDocument-named-withContent.json" \
-       "<RSPACE_URL>/api/v1/documents"
+       "$RSPACE_URL/api/v1/documents"
 
 You can also set the parent folder that you want the document created in. This should be folder in your Workspace - not a shared folder.
 
-    curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" \
+    curl -X POST -H "content-type: application/json" -H "apiKey:$APIKEY" \
        -d "@tutorial-data/creatingDocument/basicDocument-named-withContent-withParentFolder.json" \
-       "<RSPACE_URL>/api/v1/documents"
+       "$RSPACE_URL/api/v1/documents"
 
 If you don't set parent folder, it will appear in the 'API Inbox' folder by default.
        
@@ -188,7 +197,7 @@ If you want to create links to files in a document's content, you can easily do 
 
 You can create notebooks and folders:
 
-    curl -X POST "<RSPACE_URL>/api/v1/folders" -H "accept: application/json" -H "apiKey: <APIKEY>" \
+    curl -X POST "$RSPACE_URL/api/v1/folders" -H "accept: application/json" -H "apiKey: $APIKEY" \
     -H "content-type: application/json" \
     -d "{ \"name\": \"My notebook\", \"notebook\": \"true\"}"
     
@@ -196,7 +205,7 @@ will create a new Notebook in your Home folder. If you prefer to create a folder
 
 You can also create a new folder or notebook in an existing folder using the `parentFolderId` parameter, e.g.
 
-    curl -X POST "<RSPACE_URL>/api/v1/folders" -H "accept: application/json" -H "apiKey: <APIKEY>" \
+    curl -X POST "$RSPACE_URL/api/v1/folders" -H "accept: application/json" -H "apiKey: $APIKEY" \
      -H "content-type: application/json"\
      -d "{ \"name\": \"My notebook\", \"parentFolderId\":\"12234\"}"
     
@@ -206,7 +215,7 @@ There are some restrictions on where you can create folders and notebooks, which
 * You can't create folders or notebooks inside notebooks
 * You can't create notebooks inside the Shared Folder; create them in a User folder first, then share. (Sharing is not yet supported in the API, but you can do this in the web application).
 
-## Editing existing content in a basic document
+### Editing existing content in a basic document
 
 You can alter the content of an existing document using a `PUT` request to the `/documents/{docId}` endpoint. The new
 content will replace existing content. If someone else is editing the document, then the request will fail,
@@ -214,10 +223,10 @@ returning a `409 Conflict` error code.
 
 You just include in the request body the data that you want to change - any/all of name, tags and field content.
 
-    curl -v  -X PUT -H "content-type: application/json" -H "apiKey: <APIKEY>"\
-      -d "@tutorial-data/editingDocument/editBasicDocument.json"  "<RSPACE_URL>/api/v1/documents/<DOC_ID>"
+    curl -v  -X PUT -H "content-type: application/json" -H "apiKey: $APIKEY"\
+      -d "@tutorial-data/editingDocument/editBasicDocument.json"  "$RSPACE_URL/api/v1/documents/<DOC_ID>"
       
-## Creating and editing multi-field documents.
+### Creating and editing multi-field documents.
 
 Now we know how to  create simple documents, let's consider multi-field of 'Structured Documents' that contain 
  fields of different types as defined by a Form. You can add/edit content to any or all of the fields.
@@ -229,18 +238,68 @@ In this section we'll be using the standard 'Experiment' form that is already de
  When adding content, the order is important. If for example, you just want to add content to the 'Procedure' field,
   which is the 3rd field, then supply a list of 7 fields, of which only the 3rd has some data, e.g.
   
-    curl -X POST -H "content-type: application/json" -H "apiKey:<APIKEY>" \
-      -d "@tutorial-data/creatingDocument/complexDocument-named-withContent.json" "<RSPACE_URL>/api/v1/documents"
+    curl -X POST -H "content-type: application/json" -H "apiKey:$APIKEY" \
+      -d "@tutorial-data/creatingDocument/complexDocument-named-withContent.json" "$RSPACE_URL/api/v1/documents"
  
  When editing content, there are two options. Either you can send the data as a list of all fields, as for POST, including content
   as necessary, or you can reference a field by its ID, and just send values for 
   [those specific fields](tutorial-data/editingDocument/editComplexDocument-named-withFieldIds.json).
   
-    curl -v  -X PUT -H "content-type: application/json" -H "apiKey: <APIKEY>"\
+    curl -v  -X PUT -H "content-type: application/json" -H "apiKey: $APIKEY"\
       -d "@tutorial-data/editingDocument/editComplexDocument-named-withFieldIds.json"\
-      "<RSPACE_URL>/api/v1/documents/<DOC_ID>"
+      "$RSPACE_URL/api/v1/documents/<DOC_ID>"
       
  As for BasicDocuments, you can also edit name and tags in the request body as well.
+ 
+## Navigating content
+
+You can navigate the folder tree in an analogous way to using the 'Tree View' in the workspace UI. You can start at the Home folder:
+
+    curl -v -H"apiKey: $APIKEY" "$RSPACE_URL/api/v1/folders/tree"
+    
+or at a specific folder by specifying its ID:
+
+    curl -v -H"apiKey: $APIKEY" "$RSPACE_URL"/api/v1/folders/tree/<FOLDER_ID>"
+    
+Both the above requests will return a paginated list of basic information about each item in the folder:
+    
+    "totalHits": 7,
+    "pageNumber": 0,
+    "_links": [
+      {
+       "link": "https://rspac1918-foldertree-api-7.researchspace.com/api/v1/folders/tree?pageNumber=0",
+       "rel": "self"
+      }
+      ],
+    "parentId": 162,
+    "records": [
+      "id": 185,
+      "globalId": "GL185",
+      "name": "ethane.jpg",
+      "created": "2019-09-26T08:22:53.434Z",
+      "lastModified": "2019-09-26T08:22:53.434Z",
+      "parentFolderId": 163,
+      "type": "MEDIA",
+      "_links": [
+        {
+          "link": "https://rspac1918-foldertree-api-7.researchspace.com/api/v1/files/185",
+          "rel": "self"
+        }
+        .......
+      ]
+      
+ Note that in the above data:
+ 
+ * the `type` field is one of 'MEDIA', 'DOCUMENT', 'NOTEBOOK' or 'FOLDER'. Use this to identify the type of returned item.
+ * Use the `self` link to get more information about the individual item
+ * `parentId` is the parent of the listed folder. You can use this to navigate up the folder tree. If the listing is of the Home folder, `parentId` will not be set
+    
+Additionally you can restrict the results to one or any of 'document', 'folder' or 'notebook':
+
+    curl -v  -H"apiKey: $APIKEY" \
+    "$RSPACE_URL/api/v1/folders/tree?typesToInclude=folder,notebook&pageSize=20"
+    
+ will return just folders and notebooks from the Home folder, paginated 20 at a time. 
 
 ## Deleting content
  
@@ -248,13 +307,13 @@ In this section we'll be using the standard 'Experiment' form that is already de
   but are merely hidden from listings and search results. This is a simple call that takes single path variable, the ID
   of the document to delete:
   
-    curl -v  -X DELETE  -H "apiKey: <APIKEY>"\
-      "<RSPACE_URL>/api/v1/documents/<DOC_ID>"
+    curl -v  -X DELETE  -H "apiKey: $APIKEY"\
+      "$RSPACE_URL/api/v1/documents/<DOC_ID>"
       
 and in a similar way you can delete whole notebooks or folders as well:
 
-    curl -v  -X DELETE  -H "apiKey: <APIKEY>"\
-      "<RSPACE_URL>/api/v1/folders/<FOLDER_ID>"
+    curl -v  -X DELETE  -H "apiKey: $APIKEY"\
+      "$RSPACE_URL/api/v1/folders/<FOLDER_ID>"
       
 In both these cases, if a notebook or document was previously shared, then they will be unshared as part of the deletion process.
   
@@ -268,22 +327,22 @@ in the 'Manage Forms' page in the web application.
 
 To list all Forms:
       
-    curl -X GET "<RSPACE_URL>/api/v1/forms" -H "accept: application/json" -H "apiKey: <APIKEY>"
+    curl -X GET "$RSPACE_URL/api/v1/forms" -H "accept: application/json" -H "apiKey: $APIKEY"
     
 As for documents and files, you can order and paginate:
 
-    curl -X GET "<RSPACE_URL>/api/v1/forms?pageSize=10&orderBy=lastModified%20desc" \
-       -H "accept: application/json" -H "apiKey: <APIKEY>"
+    curl -X GET "$RSPACE_URL/api/v1/forms?pageSize=10&orderBy=lastModified%20desc" \
+       -H "accept: application/json" -H "apiKey: $APIKEY"
        
 Searching is by freeform wildcard search for all or part of the `name` or `tag` property of the form.
 
-    curl -X GET "<RSPACE_URL>/api/v1/forms?query=Algal%20Sample" \
-       -H "accept: application/json" -H "apiKey: <APIKEY>"
+    curl -X GET "$RSPACE_URL/api/v1/forms?query=Algal%20Sample" \
+       -H "accept: application/json" -H "apiKey: $APIKEY"
        
 The search results contain summary information about each form, but does not contain the list of Field definitions. If you want to get this information, then get a single Form by its ID, e.g.
 
-    curl -X GET "<RSPACE_URL>/api/v1/forms/<ID>" \
-       -H "accept: application/json" -H "apiKey: <APIKEY>"
+    curl -X GET "$RSPACE_URL/api/v1/forms/<ID>" \
+       -H "accept: application/json" -H "apiKey: $APIKEY"
        
 Please see [Form Help documentation](https://www.researchspace.com/enterprise/help-and-support-resources-enterprise/forms-enterprise/) for more details on how Forms are versioned and used in RSpace. As in the user interface, form searching retrieves the *current version* of a Form.
 
@@ -305,16 +364,16 @@ From RSpace 1.56, it is possible to import Microsoft Word or OpenOffice files as
 
 The API calls are similar to those for uploading files - you'll need a Word/Office file, and optionally a folder ID that you want to import into:
 
-    curl -X POST "<RSPACE_URL>/api/v1/import/word" -H "accept: application/json" \
-    -H "apiKey: <APIKEY>" -H "content-type: multipart/form-data" \
+    curl -X POST "$RSPACE_URL/api/v1/import/word" -H "accept: application/json" \
+    -H "apiKey: $APIKEY" -H "content-type: multipart/form-data" \
      -F "file=@<WORD_FILE>.doc;type=application/msword"
     
 If you don't specify a folder ID, the RSpace document will be created in the 'Api Inbox' folder.
 
 From RSpace 1.58, Evernote .enex files can be imported using a similar mechanism, e.g.:
 
-    curl -X POST "<RSPACE_URL>/api/v1/import/evernote" -H "accept: application/json" \
-    -H "apiKey: <APIKEY>" -H "content-type: multipart/form-data" \
+    curl -X POST "$RSPACE_URL/api/v1/import/evernote" -H "accept: application/json" \
+    -H "apiKey: $APIKEY" -H "content-type: multipart/form-data" \
      -F "file=@<EVERNOT_FILE>.enex;type=application/xml"
      
 If successful, a new folder will be returned, containing the newly imported notes. An Evernote 'Note' will be converted into an RSpace plain text document.
