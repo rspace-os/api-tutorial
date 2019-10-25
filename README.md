@@ -11,7 +11,7 @@ RSpace API to interact programmatically with the RSpace Electronic Lab Notebook.
 
 ### How does this tutorial fit in with other RSpace API documentation?
 
-* The [RSpace help documentation](http://www.researchspace.com/help-and-support-resources/rspace-api-introduction/)
+* The [RSpace help documentation](https://researchspace.helpdocs.io/article/v0dxtfvj7u-rspace-api-introduction)
   describes how to get your API token from the RSpace UI.
 * The [API technical reference](https://community.researchspace.com/public/apiDocs)
   describes low-level technical details of the API endpoints
