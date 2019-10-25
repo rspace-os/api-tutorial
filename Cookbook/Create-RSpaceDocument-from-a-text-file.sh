@@ -1,6 +1,6 @@
  #!/bin/bash
  
-    RSPACE_URL="my url for space/api/v1"
+    RSPACE_URL="my url for RSpace/api/v1"
     API_KEY="set this key"
     targetFolderId="a folder id to put document in"
     ## step 1

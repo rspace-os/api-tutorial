@@ -58,7 +58,7 @@ This script:
 2. Extracts the file name from the path.
 3. Extracts the file content into a variable, `$value`.
 4. The `jq` tool  then escapes the content and sets in values into a JSON template. This steps performs the key process of converting shell variables into text in a JSON string, which is then written to a file.
-5. The `sed` command is optional here. If your text file has newlines, these will be escaped by the jq tool, and the net result is that the text content will appear in one continuous line in RSpace - probably not what you want. This step will replace the newlines with '<br/>' tags. Since content in RSpace is rendered as HTML, this will ensure newlines render correctly. If your content is already HTML, then this step won't be needed.
+5. The `sed` command is optional here. If your text file has newlines, these will be escaped by the jq tool, and the net result is that the text content will appear in one continuous line in RSpace - probably not what you want. This step will replace the newlines with '&lt;br/&gt;' tags. Since content in RSpace is rendered as HTML, this will ensure newlines render correctly. If your content is already HTML, then this step won't be needed.
 6. Now we can finally post the content to RSpace! Note the use of the `-d @content-with-html-newlines.txt` in the curl command, which takes the JSON from a file.
 7. Here we tidy up and remove temporary files.
 
