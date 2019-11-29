@@ -8,6 +8,7 @@ This project provides an introduction to using the RSpace API.
 
 For software developers, or scientists with programming or scripting skills, to learn how to use the
 RSpace API to interact programmatically with the RSpace Electronic Lab Notebook.
+All the examples can be run using a personal API token. 
 
 ### How does this tutorial fit in with other RSpace API documentation?
 
@@ -21,6 +22,10 @@ RSpace API to interact programmatically with the RSpace Electronic Lab Notebook.
 ### What version of RSpace is required for this tutorial?
 
 RSpace 1.63 or newer is needed to follow all the steps.
+
+### How do I develop client Apps for RSpace?
+
+Ths tutorial covers use of personal access tokens. If you are a developer looking to incorporate OAuth authentication for a client app then please read [Using OAuth](oauth.md).
 
 ### Use-cases for the API
 
