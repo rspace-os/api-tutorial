@@ -27,6 +27,10 @@ RSpace 1.63 or newer is needed to follow all the steps.
 
 Ths tutorial covers use of personal access tokens. If you are a developer looking to incorporate OAuth authentication for a client app then please read [Using OAuth](oauth.md).
 
+### Can I contribute to this documentation?
+
+Yes, please submit either pull requests, or emails to supportATresearchspaceDOTcom, with improvements or suggestions. We will happily add you to our list of [contributors](Contributors.md).
+
 ### Use-cases for the API
 
  * Uploading files from instruments or your device into RSpace automatically.
