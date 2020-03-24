@@ -22,10 +22,10 @@ This follows standard OAuth 'password' grant flow.
 To acquire a token:
 
 ```bash
-export username=myusername
-export rspacepwd=rspacepwd
-export client_id=W3B7PMLKKBH6CYSFJHANKWGDL5DJA2PTWMDXM4A
-export client_secret=6lpZg8ayNBmkrb2o35eTZcDIm7Dfu4i2
+export username="username"
+export rspacepwd="password"
+export client_id="id"
+export client_secret="secret"
 export RSPACE_URL=https://myrspace.com
 
 curl -X POST -Fgrant_type="password" -Fclient_id="$client_id" \
