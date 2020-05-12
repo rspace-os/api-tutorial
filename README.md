@@ -27,6 +27,8 @@ RSpace 1.63 or newer is needed to follow all the steps.
 
 Ths tutorial covers use of personal access tokens. If you are a developer looking to incorporate OAuth authentication for a client app then please read [Using OAuth](oauth.md).
 
+For development purposes we have a Dockerised version of RSpace which lets you test your client application against a real instance of RSpace. Please ask us, or view our [Docker Documentation](https://researchspace.helpdocs.io/article/aj63kmb3uh-running-rspace-on-docker)
+
 ### Can I contribute to this documentation?
 
 Yes, please submit either pull requests, or emails to supportATresearchspaceDOTcom, with improvements or suggestions. We will happily add you to our list of [contributors](Contributors.md).
