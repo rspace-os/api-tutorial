@@ -22,15 +22,15 @@ This follows standard OAuth 'password' grant flow.
 To acquire a token:
 
 ```bash
-export username="username"
-export rspacepwd="password"
-export client_id="id"
-export client_secret="secret"
-export RSPACE_URL=https://myrspace.com
+export USERNAME="username"
+export PASSWORD="password"
+export CLIENT_ID="id"
+export CLIENT_SECRET="secret"
+export RSPACE_URL=https://REPLACE.researchspace.com
 
-curl -X POST -Fgrant_type="password" -Fclient_id="$client_id" \
- -Fclient_secret="$client_secret" -Fusername="$username" \
- -password="$rspacepwd" "$RSPACE_URL/oauth/token"
+curl -X POST -Fgrant_type="password" -Fclient_id="$CLIENT_ID" \
+ -Fclient_secret="$CLIENT_SECRET" -Fusername="$USERNAME" \
+ -Fpassword="$PASSWORD" "$RSPACE_URL/oauth/token"
 ```
 
 This call will return the access token, refresh tokens and a duration, in seconds, for the validity of the access token:
@@ -51,20 +51,34 @@ You can invoke this request as many times as you like - only 1 access token is e
 Using example data from the above:
 
 ```bash
-export refresh_token=rTdb7EMWXdCCdzZzMLD+EWcoXATmETll
+export REFRESH_TOKEN=rTdb7EMWXdCCdzZzMLD+EWcoXATmETll
 
-curl -X POST -Fgrant_type="refresh_token" -Fclient_id="$client_id" \
- -Fclient_secret="$client_secret" -Frefresh_token="$refresh_token" "$RSPACE_URL/oauth/token"
+curl -X POST -Fgrant_type="refresh_token" -Fclient_id="$CLIENT_ID" \
+ -Fclient_secret="$CLIENT_SECRET" -Frefresh_token="$REFRESH_TOKEN" "$RSPACE_URL/oauth/token"
  ```
 
-will return a new refresh token and access token.
+Will return a new refresh token and access token.
+
+## JWT tokens
+
+We also support JWT token generation. To obtain a JWT token, add `-Fis_jwt="true"` to `password` or `refresh_token` grant types.
+
+```bash
+curl -X POST -Fgrant_type="password" -Fclient_id="$CLIENT_ID" \
+ -Fclient_secret="$CLIENT_SECRET" -Fusername="$USERNAME" \
+ -Fpassword="$PASSWORD" -Fis_jwt="true" "$RSPACE_URL/oauth/token"
+```
+
+You can generate as many JWT tokens as you like - all of them will be valid until expiry, and until the refresh token is not updated.
+
+JWT tokens have been implemented in a way that does not interfere with the normal access and refresh token generation workflow. Hence if a JWT is requested for an already existing access/refresh token pair, assume the unhashed refresh token is known and do not return in in the response body. In addition, grant type of `refresh_token` with `is_jwt` parameter will return a new JWT token, but will not update the refresh token.
 
 ## Making API calls
 
 Use your access token as follows to make API calls.
 
 ```bash
-export access_token=TuWHW0+8mUauD/y9E0HklZqrHGkA6+34
+export ACCESS_TOKEN=TuWHW0+8mUauD/y9E0HklZqrHGkA6+34
 ## for example, list your documents
-curl -H"Authorization: Bearer $access_token" "$RSPACE_URL/api/v1/documents"
+curl -H"Authorization: Bearer $ACCESS_TOKEN" "$RSPACE_URL/api/v1/documents"
 ```
