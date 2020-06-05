@@ -69,9 +69,14 @@ curl -X POST -Fgrant_type="password" -Fclient_id="$CLIENT_ID" \
  -Fpassword="$PASSWORD" -Fis_jwt="true" "$RSPACE_URL/oauth/token"
 ```
 
-You can generate as many JWT tokens as you like - all of them will be valid until expiry, and until the refresh token is not updated.
+You can generate as many JWT tokens as you like.
+All JWT tokens will be valid until expiry, and until the refresh token is not updated.
 
-JWT tokens have been implemented in a way that does not interfere with the normal access and refresh token generation workflow. Hence if a JWT is requested for an already existing access/refresh token pair, assume the unhashed refresh token is known and do not return in in the response body. In addition, grant type of `refresh_token` with `is_jwt` parameter will return a new JWT token, but will not update the refresh token.
+JWT tokens do not interfere with the normal access/refresh token generation workflow.
+If a JWT is requested for an existing access/refresh token pair, the RSpace API assumes
+the refresh token is known and does not return it in the response body. In addition,
+grant type of `refresh_token` with `is_jwt` parameter will return a new JWT token,
+but will not update the refresh token.
 
 ## Making API calls
 
