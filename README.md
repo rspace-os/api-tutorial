@@ -185,7 +185,7 @@ You can also set the parent folder that you want the document created in. This s
 
 If you don't set parent folder, it will appear in the 'API Inbox' folder by default.
        
-#### Creating links in documents to files
+#### Creating links to files
 
 If you want to create links to files in a document's content, you can easily do this by adding a tag with the syntax:
 
@@ -203,6 +203,27 @@ If you want to create links to files in a document's content, you can easily do 
          }
         ]
     }
+
+#### Creating links to other RSpace documents, folders or notebooks
+
+If you want to create links to other RSpace documents in a document's content, you can easily do this by adding a tag with the syntax:
+
+    <docId=1234>
+    
+  to your document content, e.g. replacing '1234' with the id of your RSpace document or folder. RSpace will then create links in exactly the same way
+  as it does in the UI. E.g.
+    
+    {
+      "name": "My Experiment",
+      "tags": "API,example",
+      "fields": [
+         {
+           "content": "Protocol as described in <docId=1234>, except using EDTA 3uM. "
+         }
+        ]
+    }
+    
+This works with documents, notebooks and folders.
 
 ### Creating notebooks and folders
 
