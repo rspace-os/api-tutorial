@@ -17,7 +17,7 @@ and `scope` is 'user' or 'group'. You can optionally specify a user or group ID.
 export your own work or your own group's work (group export is only available to  PIs). E.g. to export
 your own work in HTML:
 
-    curl -XPOST -v -H "apiKey: <APIKEY>"  "<RSPACE_URL>/api/v1/export/html/user/"
+    curl -X POST -v -H "apiKey: $APIKEY"  "$RSPACE_URL/api/v1/export/html/user/"
     
  All being well, you'll receive a 202 Accepted response, job id and a link to a job to query subsequent progress:
  
@@ -33,7 +33,7 @@ your own work in HTML:
      
  You can use this link to periodically assess progress:
  
-     curl -v -H "apiKey: <APIKEY>"  "<RSPACE_URL>/api/v1/jobs/23"
+     curl -v -H "apiKey: $APIKEY"  "$RSPACE_URL/api/v1/jobs/23"
  
 Export may take a  few minutes, so we'd recommend checking for completion  no more frequently than once 
 per minute.
@@ -48,7 +48,7 @@ All calls to `job/{id}` return a 200 response regardless of the state of the und
  to the job status retrieval, not that of the underlying process. So it's important to only use the `status` property
   to decide if the job has terminated or not.
   
-If the job has completed you'll get additional information about the export process:
+If the job has completed you'll get additional information about the export process, including the size (in bytes):
 
      {
       "id": 23,
@@ -67,4 +67,4 @@ If the job has completed you'll get additional information about the export proc
     
  The enclosure link can then be used to access the download:
 
-    curl -v -H "apiKey: <APIKEY>"  -H "accept: application/octet-stream" "<RSPACE_URL>/api/v1/export/export123.zip"
+    curl -v -H "apiKey: $APIKEY"  -H "accept: application/octet-stream" "$RSPACE_URL/api/v1/export/export123.zip"

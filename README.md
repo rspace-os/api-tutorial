@@ -392,7 +392,7 @@ You can read more details in [jobs.md](jobs.md).
 
 ## Importing content
 
-From RSpace 1.56, it is possible to import Microsoft Word or OpenOffice files as RSpace documents. This is the same functionality as the `Create->from Word` feature in the web application.
+You can import Microsoft Word or OpenOffice files as RSpace documents. This is the same functionality as the `Create->from Word` feature in the web application.
 
 The API calls are similar to those for uploading files - you'll need a Word/Office file, and optionally a folder ID that you want to import into:
 
@@ -402,7 +402,7 @@ The API calls are similar to those for uploading files - you'll need a Word/Offi
     
 If you don't specify a folder ID, the RSpace document will be created in the 'Api Inbox' folder.
 
-From RSpace 1.58, Evernote .enex files can be imported using a similar mechanism, e.g.:
+Evernote .enex files can be imported using a similar mechanism, e.g.:
 
     curl -X POST "$RSPACE_URL/api/v1/import/evernote" -H "accept: application/json" \
     -H "apiKey: $APIKEY" -H "content-type: multipart/form-data" \
@@ -412,7 +412,7 @@ If successful, a new folder will be returned, containing the newly imported note
 
 ## Sharing items with other groups and users
 
-From RSpace 1.56, it is possible to share documents and notebooks programmatically. You can read more details in [sharing.md](sharing.md).
+You share documents and notebooks programmatically. You can read more details in [sharing.md](sharing.md).
 
 ## Administration of user accounts
 
