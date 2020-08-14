@@ -25,6 +25,7 @@ your own work in HTML:
     {
      "id": 23,
      "status": "STARTING",
+     "percentComplete": 0.0
      "_links": { [
       "rel": "self",
       "link": "https://myrspace.com/api/v1/jobs/23"
@@ -36,7 +37,7 @@ your own work in HTML:
      curl -v -H "apiKey: $APIKEY"  "$RSPACE_URL/api/v1/jobs/23"
  
 Export may take a  few minutes, so we'd recommend checking for completion  no more frequently than once 
-per minute.
+per minute. You can use the 'percentComplete' value to estimate when the export is likely to be complete (since 1.69.18)
 
 There are 3 statuses that indicate termination:
 
