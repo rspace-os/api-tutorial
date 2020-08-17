@@ -23,7 +23,7 @@ Before starting make sure you have your [API key](https://researchspace.helpdocs
 export RSPACE_API_KEY=mykey
 export RSPACE_URL=https://myresearchspace.com/api/v1
 
-A full listing is in (ExportSearchResults.sh)[ExportSearchResults.sh]
+A full listing is in [ExportSearchResults.sh](ExportSearchResults.sh)
 
 ```
 query=$1
