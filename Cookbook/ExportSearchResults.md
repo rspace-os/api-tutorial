@@ -13,7 +13,9 @@ This recipe is developed on MacOSX Bash but should be transferable to other Unix
 
 # Software required
 
-You'll need `curl` and `jq`; both are readily available from package managers.
+You'll need `curl`, `awk` and `jq`; all are readily available from package managers.
+
+RSpace 1.69.19 or later is required - earlier versions don't support selection-based export.
 
 # Recipe
 
