@@ -15,8 +15,8 @@ elif [ "$format" != "html" ] && [ "$format" != "xml" ] ; then
   exit 1
 fi
 ## get a comma-separated list of ids
-ids=$(curl -H"apiKey: $RSPACE_API_KEY" "$RSPACE_URL/documents?query=$query" | jq --raw-output -r '.documents | map(.id) | join(",")')
-
+ids=$(curl -s -H "apiKey: $RSPACE_API_KEY" "$RSPACE_URL/documents?query=$query" | jq --raw-output -r '.documents | map(.id) | join(",")')
+echo "Found ids to export: $ids"
 ## continue if we have search results
 if [ -z "$ids" ] ; then
 	echo "No search hits for query $query, exiting" ;
@@ -25,22 +25,29 @@ fi
 
 
 ## now we submit our export job:
-jobLink=$(curl -X POST -H "apiKey: $RSPACE_API_KEY" "$RSPACE_URL/export/$format/selection?selections=$ids"  | jq -r '._links[0].link')
+jobLink=$(curl -s -X POST -H "apiKey: $RSPACE_API_KEY" "$RSPACE_URL/export/$format/selection?selections=$ids"  | jq -r '._links[0].link')
 
 ## we can monitor the status
-stat=$(curl -H"apiKey: $RSPACE_API_KEY" $jobLink | jq -r '. | .status +":" + "\(.percentComplete)"')
+stat=$(curl -s -H"apiKey: $RSPACE_API_KEY" $jobLink | jq -r '. | .status +":" + "\(.percentComplete)"')
 
 pcComplete=$(echo $stat | awk -F ":" '{print $2}')
 status=$(echo $stat | awk -F ":" '{print $1}')
 
 while [ "$status" != "COMPLETED" ] ; do
- echo "$status: Percent complete: $pcComplete, sleeping 10s"
+ echo "$status: Percent complete: $pcComplete, sleeping 5s"
  sleep 10
- stat=$(curl -H"apiKey: $RSPACE_API_KEY" $jobLink | jq -r '. | .status +":" + "\(.percentComplete)"')
+ stat=$(curl -s -H"apiKey: $RSPACE_API_KEY" $jobLink | jq -r '. | .status +"|" + "\(.percentComplete)"')
 
- pcComplete=$(echo $stat | awk -F ":" '{print $2}')
- status=$(echo $stat | awk -F ":" '{print $1}')
+ pcComplete=$(echo $stat | awk -F "|" '{print $2}')
+ status=$(echo $stat | awk -F "|" '{print $1}')
 
 done
-echo "Completed"
-curl -H"apiKey: $RSPACE_API_KEY" $jobLink | jq '.'
+
+data=$(curl -s -H "apiKey: $RSPACE_API_KEY" $jobLink | jq -r '. | "\(.result.size)" + "|" + ._links[0].link')
+downloadLink=$(echo $data | awk -F "|" '{print $2}')
+size=$(echo $data | awk -F "|" '{print $1}')
+echo "Completed, size is $size bytes".
+echo "Download link is $downloadLink"
+echo "Use this command to download:"
+fileName=$(echo $downloadLink | awk -F "/" '{print $NF}')
+echo "curl -H\"apiKey: \$RSPACE_API_KEY\" $downloadLink -o $fileName"
