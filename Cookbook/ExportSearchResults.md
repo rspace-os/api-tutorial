@@ -90,16 +90,16 @@ This script makes heavy use of `curl`, `jq` and `awk` commands.
 
 1. Here we perform simple argument validation to ensure that search term is present, and, if an export format is selected, that it's a valid choice.
 2. Now we perform a simple search using `/document?query=` endpoint. This searches globally all over RSpace documents. 
-If there's no search hits we exit here. We format the search response into a comma-separated list of ids suitable for passing to export command.
-3. We submit export job. This will perform some checking on the server - it can take a while to return, if you are exporting 000s of items.
-4. We get a 'Job' response, hopefully it will be in the 'STARTING' phase
-5. We iterate and poll for job status until it is completed
+If there's no search hits, we exit here. We format the search response into a comma-separated list of ids suitable for passing to export command.
+3. We submit the export job. This will perform some checking on the server - it can take a while to return, if you are exporting 000s of items.
+4. We get a 'Job' response, hopefully it will be in the 'STARTING' phase.
+5. We iterate and poll for job status until it is completed.
 6. Once completed, we extract the download link to get hold of the archive. We don't download it automatically as you might want to check the size of the download.
 7. The script finishes by printing out the download command.
 
 # Variations and enhancements
 
-There are various ways this script could be modified and enhanced, e.g. by altering the polling interval or calculating dynamically from the rate at which the `percentComplete` value changes. 
+There are various ways this script could be modified and enhanced, e.g. by altering the polling interval or calculating it dynamically from the rate at which the `percentComplete` value changes. 
 
 If you have a set of work or a project in a folder that you want to export, you could miss out on the searching and just start at step 3, hard-coding the folder or notebook ids you want to export. By scheduling this weekly you get make weekly snapshots of your project for auditing or regulatory purposes. 
 
