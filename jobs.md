@@ -14,9 +14,25 @@ There's also a [Cookbook recipe](Cookbook/ExportSearchResults.md) showing a full
 
 ### Initial submission
 
-The initial export call is a `POST` request to `export/{format}/{scope}` where `format` is one of 'html' or 'xml'
-and `scope` is 'user', 'group' or 'selection'. If `scope` is `user` or `selection` then you can optionally specify a user or group ID.  If you don't you'll export your own work or your own group's work (group export is only available to  PIs).
+The initial export call is a `POST` request to `export/{format}/{scope}` where `format` is one of `html` or `xml`
+and `scope` is `user`, `group` or `selection`. If `scope` is `user` or `selection` then you can optionally specify a user or group ID.  If you don't you'll export your own work or your own group's work (group export is only available to  PIs).
 If `scope` is `selection` then you can submit a comma-separated list of record/folder/notebook/attachment IDs to export.
+
+Here's a table summarising the various submission options:
+
+    | scope | id (path) | selections (request parameter) | action |
+
+    | --- | --- | --- | --- |
+
+    | user  |  - | n/a/ | exports api client's own work |
+
+    | user  |  1234 | n/a/ | exports work of user 1234 (if authorised) |
+
+    | group  |  - | n/a/ | exports api client's group's work (if authorised |
+
+    | user  |  1234 | n/a/ | exports work of group 1234 (if authorised) |
+
+    | selection  |  n/a/ | 123,456 | exports specific items (if authorised) |
 
 _Note: 'selection' export requires RSpace 1.69.19 or later_ 
 
