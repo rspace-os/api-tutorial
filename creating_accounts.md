@@ -29,6 +29,8 @@ Send a POST request to /sysadmin/users with the details of the user to be create
  * All fields are mandatory unless indicated (see Swagger docs for details)
  * Usernames must be >= 6 characters
  * Passwords must be >= 8 characters
+
+ One of four user-roles can be specified: ROLE_USER, ROLE_PI, ROLE_ADMIN and ROLE_SYSADMIN.
  
 ## Creating a group
 
