@@ -4,9 +4,11 @@
   "fields": [
     {
       "content": "<p> Add 2ul 50uM EDTA to Xenopus egg extract. <p> See <externalFileLink=0>blah blah <p>
- more content",
-     "externalFileLinks": [{
-"id": "01EX4KOXDOLTWSWXBS7BFZY7D4PLOU6C2V", "fileName": "RSPACE VPAT.nov2019 1.docx","fileStore":"onedrive","fileUrl": "https://researchspace-my.sharepoint.com/personal/richard_researchspace_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B2BED5C6E-325C-4BF8-9C7C-7C7ADD4F0B55%7D&file=RSPACE%20VPAT.nov2019%201.docx&action=default&mobileredirect=truer"
+ more content <externalFileLink=1>...the end",
+     "externalFiles": [{
+"id": "01EX4KOXDOLTWSWXBS7BFZY7D4PLOU6C2V", "fileName": "RSPACE VPAT.nov2019 1.docx","fileStore":"onedrive","fileUrl": "https://researchspace-my.sharepoint.com/personal/richard_researchspace_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B2BED5C6E-325C-4BF8-9C7C-7C7ADD4F0B55%7D&file=RSPACE%20VPAT.nov2019%201.docx&action=default&mobileredirect=truer"},
+{
+"id": "another-file", "fileName": "results.png","fileStore":"onedrive","fileUrl": "https://researchspace-my.sharepoint.com/personal/richard_researchspace_onmicrosoft_com/_layouts/15/Doc.aspx?sourcedoc=%7B2BED5C6E-325C-4BF8-9C7C-7C7ADD4F0B55%7D&file=RSPACE%20VPAT.nov2019%201.docx&action=default&mobileredirect=truer"
 
     }]
     }
