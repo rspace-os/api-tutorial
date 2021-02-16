@@ -211,8 +211,8 @@ curl -X POST -H "content-type: application/json" -H "apiKey:$APIKEY" \
 ```
 
 If you don't set parent folder, it will appear in the 'API Inbox' folder by default.
-
-#### Creating links in documents to files
+       
+#### Creating links to files
 
 If you want to create links to files in a document's content, you can easily do this by adding a tag with the syntax:
 
@@ -234,6 +234,27 @@ as it does in the UI. E.g.
     ]
 }
 ```
+
+#### Creating links to other RSpace documents, folders or notebooks
+
+If you want to create links to other RSpace documents in a document's content, you can easily do this by adding a tag with the syntax:
+
+    <docId=1234>
+    
+  to your document content, e.g. replacing '1234' with the id of your RSpace document or folder. RSpace will then create links in exactly the same way
+  as it does in the UI. E.g.
+    
+    {
+      "name": "My Experiment",
+      "tags": "API,example",
+      "fields": [
+         {
+           "content": "Protocol as described in <docId=1234>, except using EDTA 3uM. "
+         }
+        ]
+    }
+    
+This works with documents, notebooks and folders.
 
 ### Creating notebooks and folders
 
@@ -431,7 +452,7 @@ You can read more details in [jobs.md](jobs.md).
 
 ## Importing content
 
-From RSpace 1.56, it is possible to import Microsoft Word or OpenOffice files as RSpace documents. This is the same functionality as the `Create->from Word` feature in the web application.
+You can import Microsoft Word or OpenOffice files as RSpace documents. This is the same functionality as the `Create->from Word` feature in the web application.
 
 The API calls are similar to those for uploading files - you'll need a Word/Office file, and optionally a folder ID that you want to import into:
 
@@ -443,7 +464,7 @@ curl -X POST "$RSPACE_URL/api/v1/import/word" -H "accept: application/json" \
 
 If you don't specify a folder ID, the RSpace document will be created in the 'Api Inbox' folder.
 
-From RSpace 1.58, Evernote .enex files can be imported using a similar mechanism, e.g.:
+Evernote .enex files can be imported using a similar mechanism, e.g.:
 
 ```bash
 curl -X POST "$RSPACE_URL/api/v1/import/evernote" -H "accept: application/json" \
@@ -455,7 +476,7 @@ If successful, a new folder will be returned, containing the newly imported note
 
 ## Sharing items with other groups and users
 
-From RSpace 1.56, it is possible to share documents and notebooks programmatically. You can read more details in [sharing.md](sharing.md).
+You share documents and notebooks programmatically. You can read more details in [sharing.md](sharing.md).
 
 ## Administration of user accounts
 

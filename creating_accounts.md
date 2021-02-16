@@ -27,11 +27,13 @@ curl -v  -X POST -H "content-type: application/json" -H "apiKey: <APIKEY>"\
 "<RSPACE_URL>/api/v1/sysadmin/users"
 ```
 
-There are some restrictions on the values of data fields passed:
+There are some restrictions on the values of data fields passed,
 
 * All fields are mandatory unless indicated (see Swagger docs for details)
 * Usernames must be >= 6 characters
 * Passwords must be >= 8 characters
+
+One of four user-roles can be specified: ROLE_USER, ROLE_PI, ROLE_ADMIN and ROLE_SYSADMIN.
 
 ## Creating a group
 
