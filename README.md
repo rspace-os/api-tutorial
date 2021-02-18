@@ -159,6 +159,46 @@ on the command line, e.g.
 # upload all png files in folder
 ./batchUpload.sh `ls *.png`
 ```
+    {
+      "id" : 728,
+      "globalId" : "GL728",
+      "name" : "<MY_FILE.txt>",
+      "caption" : "",
+      "contentType" : "text/plain",
+      "created" : "2017-07-23T09:54:16.007Z",
+      "size" : 2812,
+      "version" : 1
+      "_links" : [ {
+         "link" : "$RSPACE_URL/api/v1/files/728",
+         "rel" : "self"
+       }, {
+         "link" : "$RSPACE_URL/api/v1/files/728/file",
+         "rel" : "enclosure"
+      } ]
+    }
+    
+ The `_links` property contains pre-generated links to resources created or referenced in API calls. In this case, the 'self'
+  link will return the file metadata, and the 'enclosure' link will download the file contents. These will be described later.
+    
+ You can also upload a file with an optional caption, and also specify a folder to put the file in.
+ 
+     curl -v  -X POST -H "accept: application/json" -H "apiKey: $APIKEY" \
+     -H "content-type: multipart/form-data" -F "file=@<MY_FILE.txt>" -F"folderId=<FOLDER_ID>\
+     -F "caption=some metadata about this file" \"$RSPACE_URL/api/v1/files"
+     
+ The caption will appear in the 'Info' section of each Gallery item, and just like a manually edited caption, will be searchable.
+ This is a good way to add some descriptive metadata to your file so that you can locate it easily.
+ 
+ Browsing folders via the API is not yet supported. However it's very easy to get a folder ID from RSpace by clicking
+  on the 'info' icon beside a Gallery folder.
+ 
+ **Note:** There are some restrictions on which folders you can upload to. For example, if uploading image files, a folder ID must
+  be either the Gallery Images folder, or a subfolder of the images folder. You can't upload a file directly into a workspace folder
+   or notebook.
+   
+ If you're uploading many files of mixed type, then it's probably safer not to specify a single folder, but to let them be 
+ placed in the relevant `API Inbox` folder where you can organise them later.
+ 
 
 #### Replacing files
 
@@ -452,6 +492,8 @@ You can read more details in [jobs.md](jobs.md).
 
 ## Importing content
 
+### Importing from MSWord or Evernote
+
 You can import Microsoft Word or OpenOffice files as RSpace documents. This is the same functionality as the `Create->from Word` feature in the web application.
 
 The API calls are similar to those for uploading files - you'll need a Word/Office file, and optionally a folder ID that you want to import into:
@@ -473,6 +515,20 @@ curl -X POST "$RSPACE_URL/api/v1/import/evernote" -H "accept: application/json" 
 ```
 
 If successful, a new folder will be returned, containing the newly imported notes. An Evernote 'Note' will be converted into an RSpace plain text document.
+
+### Importing files from Dropbox, OneDrive or Box
+
+Since 1.69.34, RSpace supports  programmatic creation of links to external files using the API.
+This is useful if you have many files on one of these external services, and you want to reference them from RSpace.
+
+First of all you will need to use the file-service's API to download information about the files: An ID, the file name and a weblink that the RSpace user will click on to view the file from within RSpace. 
+
+Then you can include an array of `externalFiles` in the field definition and include in a POST or PUT, e.g.
+
+    curl -X POST "$RSPACE_URL/api/v1/documents" -H "accept: application/json" \
+    -H "apiKey: $APIKEY"  -d '@tutorial-data/example1Drive.json'
+     
+Insert placeholders in the text where you want the links to appear, using syntax like `<externalFileLink=N>` where `N` is the 0-based index into the array of `externalFiles`.
 
 ## Sharing items with other groups and users
 
