@@ -135,8 +135,7 @@ This will upload a file '<MY_FILE.txt>'  a  default folder called 'Api Inbox' in
  
 #### Uploading files from a folder.
  
- The script [batchUpload.sh](tutorial-data/uploading-a-file-1/batchUpload.sh) will upload files sequentially from a list
- on the command line, e.g.
+ The script [batchUpload.sh](tutorial-data/uploading-a-file-1/batchUpload.sh) will upload files sequentially from a list on the command line, e.g.
  
      # upload a single file
      ./batchUpload.sh myFile.txt
@@ -392,6 +391,8 @@ You can read more details in [jobs.md](jobs.md).
 
 ## Importing content
 
+### Importing from MSWord or Evernote
+
 You can import Microsoft Word or OpenOffice files as RSpace documents. This is the same functionality as the `Create->from Word` feature in the web application.
 
 The API calls are similar to those for uploading files - you'll need a Word/Office file, and optionally a folder ID that you want to import into:
@@ -409,6 +410,20 @@ Evernote .enex files can be imported using a similar mechanism, e.g.:
      -F "file=@<EVERNOT_FILE>.enex;type=application/xml"
      
 If successful, a new folder will be returned, containing the newly imported notes. An Evernote 'Note' will be converted into an RSpace plain text document.
+
+### Importing files from Dropbox, OneDrive or Box
+
+Since 1.69.34, RSpace supports  programmatic creation of links to external files using the API.
+This is useful if you have many files on one of these external services, and you want to reference them from RSpace.
+
+First of all you will need to use the file-service's API to download information about the files: An ID, the file name and a weblink that the RSpace user will click on to view the file from within RSpace. 
+
+Then you can include an array of `externalFiles` in the field definition and include in a POST or PUT, e.g.
+
+    curl -X POST "$RSPACE_URL/api/v1/documents" -H "accept: application/json" \
+    -H "apiKey: $APIKEY"  -d '@tutorial-data/example1Drive.json'
+     
+Insert placeholders in the text where you want the links to appear, using syntax like `<externalFileLink=N>` where `N` is the 0-based index into the array of `externalFiles`.
 
 ## Sharing items with other groups and users
 
