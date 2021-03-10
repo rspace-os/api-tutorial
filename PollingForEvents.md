@@ -2,32 +2,31 @@
 
 RSpace does not yet support WebHooks or RestHooks that enable client software to subscribe to event notifications
 
-However, the /activity API does supply a listing of document-relared events such as creation, access, editing, signing etc.
-Polling of the activity/ endpoint can be used to detect changes.
+However, the `/activity` API does supply a listing of document-relared events such as creation, access, editing, signing etc.
+Polling of the `/activity` endpoint can be used to detect changes.
 
 ### Example use case
 
 You are interested in listening to changes in an RSpace document created from a particular form.
 When these documents are altered, you would like your client software to receive the edited documents, along with any file attachments
 
-### Steps
+### Solution
 
-1. Look up the ID of the form used to create the documents. You can see this in the 'Info' popup of a document. <img src="FormIdRef.png" alt="drawing" width="800"/>
+1. Manually, Look up the ID of the form used to create the documents. You can see this in the 'Info' popup of such a document. <img src="FormIdRef.png" alt="drawing" width="800"/>
 
 ### Pseudo-code
-A usable polling interval would be in the range 1 mins.
+A usable polling interval would be in the range of 1-15 mins.
 
+Every poll interval:
 
 ```
-   ## Every poll interval
-
      ## Query /activity endpoint, e.g.
      curl -X GET "$RSPACE_URL/api/v1/activity?actions=WRITE&domains=RECORD" -H "accept: application/json" -H "apiKey: $API_KEY"
   
-       ### filter for new events (i.e. where the timestamp is later than last polling time)
-       ### record the timestamp of the most recent event.
+       ### 1. filter for new events (i.e. where the timestamp is later than last polling time)
+       ### 2. record the timestamp of the most recent event.
 
-       ### parse the document id out of the payload.id property, extracting the number following 'SD':
+       ### 3. parse the document id out of the payload.id property, extracting the number following 'SD':
          "totalHits": 70,
          "pageNumber": 0,
          "activities": [
@@ -48,18 +47,19 @@ A usable polling interval would be in the range 1 mins.
           "_links": []
          },.....
 
-       ### Retrieve the document by its ID
+       ### 4. Retrieve the document by its ID
        curl -X GET "$RSPACE_URL/api/v1/documents/26813" -H "accept: application/json" -H "apiKey: $API_KEY"
 
-       ### Filter for documents created from the embedded form data
-
+       ### 5. Inspect  the embedded form data, and filter for documents created from the Form of interest.
           form": {
             "id": 4325377,
             "globalId": "FM4325377",
             "stableId": "1590584800008null",
             ....
           }
-       ### Iterate over fields in the document and retrieve attachments from the 'files' property. The 'enclosure' link gets the file contents.
+
+       ### 6. Iterate over fields in the document and retrieve attachments from links in the 'files' property. The 'enclosure' link downloads the file contents,
+       with response header application/octet-stream .
 
         "files": [
           {
@@ -84,6 +84,3 @@ A usable polling interval would be in the range 1 mins.
          }
 ```
 
-
-
-```
