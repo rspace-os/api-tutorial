@@ -12,7 +12,8 @@ When these documents are altered, you would like your client software to receive
 
 ### Solution
 
-1. Manually, Look up the ID of the form used to create the documents. You can see this in the 'Info' popup of such a document. <img src="FormIdRef.png" alt="drawing" width="800"/>
+1. Manually, Look up the ID of the form used to create the documents. You can see this in the 'Info' popup of such a document. 
+<img src="FormIdRef.png" alt="drawing" width="800"/>
 
 ### Pseudo-code
 A usable polling interval would be in the range of 1-15 mins.
@@ -21,7 +22,8 @@ Every poll interval:
 
 ```
      ## Query /activity endpoint, e.g.
-     curl -X GET "$RSPACE_URL/api/v1/activity?actions=WRITE&domains=RECORD" -H "accept: application/json" -H "apiKey: $API_KEY"
+     curl -X GET "$RSPACE_URL/api/v1/activity?actions=WRITE&domains=RECORD"\
+        -H "accept: application/json" -H "apiKey: $API_KEY"
   
        ### 1. filter for new events (i.e. where the timestamp is later than last polling time)
        ### 2. record the timestamp of the most recent event.
@@ -58,8 +60,8 @@ Every poll interval:
             ....
           }
 
-       ### 6. Iterate over fields in the document and retrieve attachments from links in the 'files' property. The 'enclosure' link downloads the file contents,
-       with response header application/octet-stream .
+       ### 6. Iterate over fields in the document and retrieve attachments from links in the 'files' property.
+        The 'enclosure' link downloads the file contents, with response header application/octet-stream .
 
         "files": [
           {
