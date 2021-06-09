@@ -5,7 +5,7 @@ These could be a set of documents tagged with a project or grant ID for example.
 
 # Background
 
-Exporting a selection of items is possible in the web interface. Since 1.69.19 this is also available in the API.
+Exporting a selection of items is possible in the web interface. Since 1.69.19, this is also available in the API.
 
 This feature enables searching and listing of ELN data to be exported for governance or regulatory purposes.
 
@@ -20,8 +20,10 @@ RSpace 1.69.19 or later is required - earlier versions don't support selection-b
 # Recipe
 
 Before starting make sure you have your [API key](https://researchspace.helpdocs.io/article/v0dxtfvj7u-rspace-api-introduction). Export your key and URL as variables, e.g.
-export RSPACE_API_KEY=mykey
-export RSPACE_URL=https://myresearchspace.com/api/v1
+
+
+    export RSPACE_API_KEY=mykey
+    export RSPACE_URL=https://myresearchspace.com/api/v1
 
 A full listing is in [ExportSearchResults.sh](ExportSearchResults.sh)
 

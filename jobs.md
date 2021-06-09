@@ -4,7 +4,7 @@ You can programmatically export your work in HTML or XML format. This
 might be useful if you want to make scheduled backups, for example. If you're an admin or PI you can export
 a particular user's work if you have permission.
 
-Because export can be quite time-consuming, this is an _asynchronous_ operation. On initial export you will receive a link to
+Because export can be quite time-consuming, this is an *asynchronous* operation. On initial export you will receive a link to
 a **job** that you can query for progress updates. When the export has completed there will be a link to
 access the exported file - which may be very large.
 
@@ -41,16 +41,19 @@ _Note: 'selection' export requires RSpace 1.69.19 or later_
 #### Examples
 
 Export your own work in HTML:
+
 ```bash
 curl -X POST -v -H "apiKey: $APIKEY" "$RSPACE_URL/api/v1/export/html/user/"
 ```
 
 Export some specific RSpace documents to XML :
+
 ```bash
 curl -X POST -v -H "apiKey: $APIKEY" "$RSPACE_URL/api/v1/export/xml/selection?selections=1234,5678,2469"
 ```
 
 All being well, you'll receive a `202 Accepted` response, job id and a link to a job to query subsequent progress:
+
 ```json
 {
   "id": 23,
