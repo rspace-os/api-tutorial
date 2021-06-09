@@ -1,7 +1,7 @@
 # Aim
 
 You are collecting files in a directory - perhaps deposited there by an instrument. You'd like these to be
-automatically sent to an RSpace experiment document
+automatically sent to an RSpace experiment document so that they are associated with an experiment or protocol.
 
 # Background
 
