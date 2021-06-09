@@ -5,7 +5,7 @@ automatically sent to an RSpace experiment document
 
 # Background
 
-This recipe enables automated association of files with an experiment/
+This recipe enables automated association of files with an experiment.
 
 This recipe is developed on MacOSX Bash but should be transferable to other Unix/Linux environments
 
@@ -37,7 +37,7 @@ Set a directory you want to watch for files:
 
     FOLDER=/path/to/instrument-data-folder
 
-For each file in the script, we can uplaod this to RSpace, and get its ID, then attach to a document
+For each file in the script, we can upload this to RSpace, and get its ID, then attach to a document.
 
 ```
 ## iterate over files in the folder (not subfolders)
