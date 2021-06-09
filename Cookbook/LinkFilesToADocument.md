@@ -93,4 +93,4 @@ Several improvements are possible, e.g.
 
 * Execution of this script could be scheduled, e.g. using `cron`
 * All the files could be linked at once - this would save bandwidth and time if uploading many files.
-* Only new files not previously uplaoded could be sent to RSpace, rather than all files/ 
+* Only new files not previously uploaded could be sent to RSpace, rather than all files. 
