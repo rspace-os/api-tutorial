@@ -22,11 +22,12 @@ This follows standard OAuth 'password' grant flow.
 To acquire a token:
 
 ```bash
-export USERNAME="username"
-export PASSWORD="password"
-export CLIENT_ID="id"
-export CLIENT_SECRET="secret"
-export RSPACE_URL=https://REPLACE.researchspace.com
+
+export USERNAME="username"\
+ PASSWORD="password"\
+ CLIENT_ID="id"\
+ CLIENT_SECRET="secret"\
+ RSPACE_URL=https://REPLACE.researchspace.com
 
 curl -X POST -Fgrant_type="password" -Fclient_id="$CLIENT_ID" \
  -Fclient_secret="$CLIENT_SECRET" -Fusername="$USERNAME" \
