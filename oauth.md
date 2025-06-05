@@ -1,6 +1,9 @@
 # Getting started with OAuth for RSpace
 
-As of RSpace 1.66, only the 'password' grant flow is supported. This requires an initial token grant using username/password credentials.
+As of RSpace 2.11/1.111, only the 'password' grant flow is supported. This requires an initial token grant using username/password credentials.
+
+Also, since RSpace 2.11/1.111, the OAuth authentication needs to be enabled by System Admin on System -> Configuration -> System Settings page,
+otherwise users won't be able to interact with `/oauth` endpoints, and previously-generated OAuth tokens will not be accepted for API authentication.
 
 ## Registering a client app as an OAuth app developer
 
